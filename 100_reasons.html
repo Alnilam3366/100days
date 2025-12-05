@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -271,7 +271,6 @@
     "I like you. A lot.",
     "I like how you add color to my life.",
     "Nyan🐱"
-    // 之后如果还想加，可以继续往下写
   ];
 
   let index = 0;
@@ -281,6 +280,7 @@
   const nextBtn = document.getElementById("nextBtn");
   const restartBtn = document.getElementById("restartBtn");
   const finalImage = document.getElementById("finalImage");
+  const hint = document.querySelector(".hint");
 
   // Loading 动画结束后显示主内容
   window.addEventListener("load", () => {
@@ -316,7 +316,7 @@
       }, 220);
 
       nextBtn.style.display = "none";
-     document.getElementById("hint").style.display = "none";
+      if (hint) hint.style.display = "none";
       restartBtn.style.display = "inline-block";
       finalImage.style.display = "block";
     }
@@ -332,6 +332,7 @@
     nextBtn.style.display = "inline-block";
     restartBtn.style.display = "none";
     finalImage.style.display = "none";
+    if (hint) hint.style.display = "block";
   }
 
   nextBtn.addEventListener("click", showNextReason);
@@ -340,4 +341,3 @@
 
 </body>
 </html>
-
