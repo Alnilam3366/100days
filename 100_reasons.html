@@ -12,189 +12,184 @@
   body {
     font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
       "PingFang SC", "Segoe UI", sans-serif;
-    background: radial-gradient(circle at top, #eef2ff, #fdf2ff 45%, #fef9f5);
+    background: radial-gradient(circle at top, #eef2ff, #fdf2ff 45%, #f9fafb);
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
     margin: 0;
-    text-align: center;
     padding: 20px;
-    color: #111827;
   }
 
-  .container {
-    background: #ffffff;
-    padding: 30px 25px;
-    border-radius: 24px;
-    box-shadow: 0 18px 45px rgba(15, 23, 42, 0.16);
-    max-width: 480px;
-    width: 100%;
-    opacity: 0;
-    transform: translateY(6px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
-  }
-
-  .container.show {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  h1 {
-    margin-bottom: 15px;
-    font-size: 1.6rem;
-    color: #6d28d9;
-  }
-
-  #reason {
-    margin: 25px 0 18px;
-    font-size: 1.05rem;
-    min-height: 90px;
-    line-height: 1.7;
-    color: #374151;
-    padding: 0 4px;
-    opacity: 1;
-    transition: opacity 0.35s ease;
-  }
-
-  .buttons {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 8px;
-  }
-
-  button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 999px;
-    font-size: 0.95rem;
-    cursor: pointer;
-    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .paw-btn {
-    background: #fef3c7;
-    box-shadow: 0 6px 14px rgba(249, 115, 22, 0.25);
-    color: #92400e;
-    font-weight: 600;
-  }
-
-  .paw-btn span.emoji {
-    font-size: 1.2rem;
-  }
-
-  .paw-btn:hover {
-    background: #fde68a;
-    transform: translateY(-1px);
-    box-shadow: 0 10px 22px rgba(249, 115, 22, 0.3);
-  }
-
-  .secondary-btn {
-    background: #e5e7eb;
-    color: #374151;
-    box-shadow: 0 4px 10px rgba(148, 163, 184, 0.4);
-  }
-
-  .secondary-btn:hover {
-    background: #d1d5db;
-    transform: translateY(-1px);
-  }
-
-  .finished-text {
-    color: #7c3aed;
-    font-weight: 600;
-    font-size: 0.98rem;
-    line-height: 1.6;
-  }
-
-  #finalImage {
-    margin-top: 16px;
-    max-width: 100%;
-    border-radius: 14px;
-    box-shadow: 0 10px 26px rgba(0,0,0,0.18);
-    display: none;
-  }
-
-  .counter {
-    font-size: 0.8rem;
-    color: #9ca3af;
-    margin-top: 4px;
-  }
-
-  /* Loading overlay - 恋爱信封动画 */
-  .loading-overlay {
+  /* --- Loading 恋爱信封 --- */
+  #loadingScreen {
     position: fixed;
     inset: 0;
-    background: radial-gradient(circle at top, #e0e7ff, #fdf2ff 55%, #fef3c7);
+    background: radial-gradient(circle at top, #e0e7ff, #fdf2ff 50%, #f9fafb);
     display: flex;
-    align-items: center;
     justify-content: center;
-    flex-direction: column;
+    align-items: center;
     z-index: 10;
+    flex-direction: column;
+    gap: 16px;
     text-align: center;
   }
 
   .envelope {
-    width: 130px;
-    height: 88px;
+    width: 160px;
+    height: 110px;
     background: #ffffff;
     border-radius: 16px;
     position: relative;
-    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.25);
+    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.18);
     overflow: hidden;
-    border: 1px solid rgba(129, 140, 248, 0.6);
+    animation: float 2.2s ease-in-out infinite;
   }
 
   .envelope::before {
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, #f9a8d4, #fde68a);
-    clip-path: polygon(0 0, 50% 60%, 100% 0);
+    background: linear-gradient(135deg, #e5e7eb 50%, transparent 50%);
     transform-origin: top;
-    animation: flap 1.4s ease-in-out infinite;
   }
 
-  .envelope-heart {
+  .envelope::after {
+    content: "💜";
     position: absolute;
-    left: 50%;
-    top: 52%;
-    transform: translate(-50%, -50%);
-    font-size: 1.6rem;
-    animation: beat 1.1s ease-in-out infinite;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.9rem;
   }
 
-  .loading-text {
-    margin-top: 18px;
+  #loadingText {
     font-size: 0.95rem;
     color: #4b5563;
   }
 
-  .loading-sub {
-    margin-top: 4px;
-    font-size: 0.8rem;
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  .fade-out {
+    animation: fadeOut 0.7s ease forwards;
+  }
+
+  @keyframes fadeOut {
+    to { opacity: 0; visibility: hidden; }
+  }
+
+  /* --- 主内容卡片 --- */
+  .container {
+    background: #ffffff;
+    padding: 30px 25px 26px;
+    border-radius: 22px;
+    box-shadow: 0 18px 45px rgba(15, 23, 42, 0.14);
+    max-width: 480px;
+    width: 100%;
+    text-align: center;
+    display: none; /* 初始隐藏，等 loading 完成后显示 */
+  }
+
+  h1 {
+    margin-bottom: 14px;
+    font-size: 1.6rem;
+    color: #6d28d9;
+  }
+
+  #reason {
+    margin: 22px 0;
+    font-size: 1.05rem;
+    min-height: 80px;
+    line-height: 1.7;
+    color: #374151;
+    padding: 0 4px;
+    opacity: 1;
+    transition: opacity 0.3s ease;
+  }
+
+  .hint {
+    font-size: 0.82rem;
     color: #9ca3af;
+    margin-top: -8px;
   }
 
-  @keyframes flap {
-    0%, 100% {
-      transform: rotateX(0deg);
-    }
-    50% {
-      transform: rotateX(-32deg);
-    }
+  /* --- 猫猫爪按钮 --- */
+  .btn-row {
+    margin-top: 4px;
   }
 
-  @keyframes beat {
-    0%, 100% {
-      transform: translate(-50%, -50%) scale(1);
+  button {
+    border: none;
+    cursor: pointer;
+    font-size: 0.95rem;
+    margin: 4px 6px;
+  }
+
+  .paw-btn {
+    position: relative;
+    padding: 12px 28px 12px 24px;
+    background: #8b5cf6;
+    color: #fff;
+    border-radius: 999px;
+    box-shadow: 0 10px 22px rgba(129, 140, 248, 0.5);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  }
+
+  .paw-btn:hover {
+    transform: translateY(-1px);
+    background: #7c3aed;
+    box-shadow: 0 14px 28px rgba(129, 140, 248, 0.6);
+  }
+
+  .paw-emoji {
+    font-size: 1.2rem;
+  }
+
+  .secondary-btn {
+    padding: 10px 18px;
+    border-radius: 999px;
+    background: #e5e7eb;
+    color: #374151;
+    box-shadow: 0 6px 14px rgba(148, 163, 184, 0.45);
+  }
+
+  .secondary-btn:hover {
+    background: #d1d5db;
+  }
+
+  .finished-text {
+    color: #6d28d9;
+    font-weight: 600;
+    font-size: 0.98rem;
+    line-height: 1.7;
+  }
+
+  #finalImage {
+    margin-top: 16px;
+    max-width: 100%;
+    border-radius: 16px;
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.3);
+    display: none;
+  }
+
+  @media (max-width: 480px) {
+    .container {
+      padding: 24px 18px 22px;
     }
-    50% {
-      transform: translate(-50%, -52%) scale(1.18);
+
+    h1 {
+      font-size: 1.4rem;
+    }
+
+    #reason {
+      font-size: 1rem;
     }
   }
 </style>
@@ -202,21 +197,19 @@
 <body>
 
 <!-- Loading 恋爱信封 -->
-<div id="loadingOverlay" class="loading-overlay">
-  <div class="envelope">
-    <div class="envelope-heart">💌</div>
-  </div>
-  <div class="loading-text">Opening a love letter of 100 reasons…</div>
-  <div class="loading-sub">Just a little moment before you see everything. ✨</div>
+<div id="loadingScreen">
+  <div class="envelope"></div>
+  <div id="loadingText">Opening a little love letter for you…</div>
 </div>
 
-<div class="container" id="mainCard">
+<div class="container">
   <h1>100 Reasons I Like Tam Tam 🌙</h1>
   <div id="reason">Click the paw to begin 💜</div>
+  <div class="hint">Tap the cat paw to see the next reason 🐾</div>
 
-  <div class="buttons">
+  <div class="btn-row">
     <button id="nextBtn" class="paw-btn">
-      <span class="emoji">🐾</span>
+      <span class="paw-emoji">🐾</span>
       <span>Next</span>
     </button>
     <button id="restartBtn" class="secondary-btn" style="display:none;">
@@ -278,41 +271,35 @@
     "I like you. A lot.",
     "I like how you add color to my life.",
     "Nyan🐱"
-    // 如果之后还想继续加，可以在这里往下继续写
+    // 之后如果还想加，可以继续往下写
   ];
 
   let index = 0;
+  const loadingScreen = document.getElementById("loadingScreen");
+  const container = document.querySelector(".container");
   const reasonDiv = document.getElementById("reason");
   const nextBtn = document.getElementById("nextBtn");
   const restartBtn = document.getElementById("restartBtn");
   const finalImage = document.getElementById("finalImage");
-  const loadingOverlay = document.getElementById("loadingOverlay");
-  const mainCard = document.getElementById("mainCard");
-  const counterText = document.getElementById("counterText");
 
-  // Loading 动画结束后显示主卡片
+  // Loading 动画结束后显示主内容
   window.addEventListener("load", () => {
     setTimeout(() => {
-      loadingOverlay.style.display = "none";
-      mainCard.classList.add("show");
-    }, 1800); // 1.8 秒后展开
+      loadingScreen.classList.add("fade-out");
+      setTimeout(() => {
+        loadingScreen.style.display = "none";
+        container.style.display = "block";
+      }, 700);
+    }, 1500); // 停留 1.5s 再淡出
   });
-
-  function updateCounter() {
-    const current = Math.min(index, reasons.length);
-    // 这里写 100 只是一个“名义上的数字”，很有“还会继续加”的感觉
-    counterText.textContent = `${current} / 100 (…or maybe more 🐱)`;
-  }
 
   function showNextReason() {
     if (index < reasons.length) {
-      // 淡出
+      // 淡出再淡入的过渡
       reasonDiv.style.opacity = 0;
       setTimeout(() => {
         reasonDiv.textContent = reasons[index];
         index++;
-        updateCounter();
-        // 淡入
         reasonDiv.style.opacity = 1;
       }, 220);
     } else {
@@ -329,9 +316,8 @@
       }, 220);
 
       nextBtn.style.display = "none";
-      restartBtn.style.display = "inline-flex";
+      restartBtn.style.display = "inline-block";
       finalImage.style.display = "block";
-      updateCounter();
     }
   }
 
@@ -341,20 +327,15 @@
     setTimeout(() => {
       reasonDiv.textContent = "Click the paw to begin 💜";
       reasonDiv.style.opacity = 1;
-    }, 200);
-    nextBtn.style.display = "inline-flex";
+    }, 220);
+    nextBtn.style.display = "inline-block";
     restartBtn.style.display = "none";
     finalImage.style.display = "none";
-    updateCounter();
   }
 
   nextBtn.addEventListener("click", showNextReason);
   restartBtn.addEventListener("click", restart);
-
-  // 初始化计数
-  updateCounter();
 </script>
 
 </body>
 </html>
-
