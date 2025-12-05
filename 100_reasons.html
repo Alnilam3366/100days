@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>100 Reasons I Like You</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  body {
+    font-family: system-ui, sans-serif;
+    background: #f8f5ff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    text-align: center;
+    padding: 20px;
+  }
+
+  .container {
+    background: #ffffff;
+    padding: 30px 25px;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+    max-width: 480px;
+  }
+
+  h1 {
+    margin-bottom: 15px;
+    font-size: 1.6rem;
+    color: #6d28d9;
+  }
+
+  #reason {
+    margin: 25px 0;
+    font-size: 1.05rem;
+    min-height: 80px;
+    line-height: 1.6;
+    color: #333;
+  }
+
+  button {
+    padding: 12px 26px;
+    background: #8b5cf6;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.2s;
+    margin: 4px 6px;
+  }
+
+  button:hover {
+    background: #7c3aed;
+  }
+
+  .secondary-btn {
+    background: #e5e7eb;
+    color: #374151;
+  }
+
+  .secondary-btn:hover {
+    background: #d1d5db;
+  }
+
+  .finished-text {
+    color: #8b5cf6;
+    font-weight: 600;
+    font-size: 0.98rem;
+    line-height: 1.6;
+  }
+
+  #finalImage {
+    margin-top: 16px;
+    max-width: 100%;
+    border-radius: 14px;
+    box-shadow: 0 10px 26px rgba(0,0,0,0.18);
+    display: none;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h1>100 Reasons I Like Tam Tam 🌙</h1>
+  <div id="reason">Click the button to begin 💜</div>
+  <button id="nextBtn">Next</button>
+  <button id="restartBtn" class="secondary-btn" style="display:none;">Start again 🔁</button>
+  <img id="finalImage" src="100.jpg" alt="Us" />
+</div>
+
+<script>
+  const reasons = [
+    "Your warm hands make me feel safe.",
+    "You sing so well, and I love hearing you sing for me.",
+    "I feel so calm and relaxed whenever you’re around.",
+    "Nyan🐱",
+    "Singing together with you.",
+    "You're always here when I need you.",
+    "Weekends are fun with you even when we do nothing special, because you’re special.",
+    "You bring me to your family parties like I belong there.",
+    "Our little adventures with Kathy Chan always make me smile.",
+    "Your hugs make my whole body relax.",
+    "You introduce me to your friends.",
+    "Nyan🐱",
+    "Your hair feels so nice to touch.",
+    "Your eyes are simply beautiful.",
+    "I like waking up and seeing your face.",
+    "Nyan🐱",
+    "I like going downstairs and seeing you every Friday because it feels like my week is finally starting.",
+    "Playing catcat with you makes me happy.",
+    "Hiking with you makes every trail better.",
+    "Netflix and chill.",
+    "I mean, having ice cream with you.",
+    "And lap cheong.",
+    "Nyan🐱",
+    "Shopping and cooking with you turns daily routine into something fun.",
+    "You keep the bed tidy, and I love that.",
+    "Having drinks with you is the best.",
+    "I like waking up and seeing your face beside me.",
+    "Going to Tim’s with 'Georgie' always makes me laugh.",
+    "Making a snowman with you made me feel like a child again.",
+    "Seeing Toronto’s skyline with you feels magical.",
+    "Nyan🐱",
+    "Birdwatching with you feels calm.",
+    "Listening to you talk about Fishy is adorable.",
+    "Lap cheong.",
+    "Watching movies with you makes simple nights special.",
+    "Making popcorn with you feels like our tiny tradition.",
+    "Watching butterflies with you is adorable.",
+    "Nyan🐱",
+    "Long walks with you never feel long.",
+    "I like how you create little jump scares in my life.",
+    "I like how you bring me Patty to keep me warm.",
+    "I like you. A lot.",
+    "I like how you add color to my life.",
+    "Nyan🐱"
+    // 如果之后还想继续加，可以在这里往下继续写
+  ];
+
+  let index = 0;
+  const reasonDiv = document.getElementById("reason");
+  const nextBtn = document.getElementById("nextBtn");
+  const restartBtn = document.getElementById("restartBtn");
+  const finalImage = document.getElementById("finalImage");
+
+  function showNextReason() {
+    if (index < reasons.length) {
+      reasonDiv.textContent = reasons[index];
+      index++;
+    } else {
+      // 全部看完之后显示结尾文案 + 图片 + 重来按钮
+      reasonDiv.innerHTML = `
+        <div class="finished-text">
+          There’s so much more for us to add in the future.<br>
+          There’s so much more for us to experience together.
+        </div>
+      `;
+      nextBtn.style.display = "none";
+      restartBtn.style.display = "inline-block";
+      finalImage.style.display = "block";
+    }
+  }
+
+  function restart() {
+    index = 0;
+    reasonDiv.textContent = "Click the button to begin 💜";
+    nextBtn.style.display = "inline-block";
+    restartBtn.style.display = "none";
+    finalImage.style.display = "none";
+  }
+
+  nextBtn.addEventListener("click", showNextReason);
+  restartBtn.addEventListener("click", restart);
+</script>
+
+</body>
+</html>
